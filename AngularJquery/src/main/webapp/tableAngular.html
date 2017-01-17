@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    </head>
+    <body ng-app="myApp">
+        <div>
+            <div ng-controller="MyCtrl">Add Your Table made with Angular here
+                <table class="table">
+                    <tr>
+                        <th>Id</th>
+                        <th>Age</th>
+                        <th>Eye Color</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Friends</th>
+                    </tr>
+                    <tr ng-repeat="person in users">
+                        <td>
+                            {{person.id}}
+                        </td>
+                        <td>
+                            {{person.age}}
+                        </td>
+                        <td>
+                            {{person.eyeColor}}
+                        </td>
+                        <td>
+                            {{person.name}}
+                        </td>
+                        <td>
+                            {{person.email}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <a href='index.html'>Back</a>
+        </div>
+        <script>
+            var app = angular.module("myApp", [])
+                    .controller("MyCtrl", ["$scope", "$http", function ($scope, $http) {
+                        $scope.users = {};
+                        $http.get("http://localhost:8084/AngularJquery/api/data").success(function (data) {
+                            console.log(data);
+                            $scope.users = data;
+                        }).error(function () {
+                            alert("The system is currently down please try agian later");
+                        });
+                    }])
+        </script>
+    </body>
+</html>

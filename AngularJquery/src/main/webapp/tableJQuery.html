@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div>Add Your Table made with JQuery here
+            <table class="data table"></table>
+        </div>
+        <a href='index.html'>Back</a>
+        <script>
+
+            $(document).ready(function () {
+
+                getPersons();
+
+            })
+
+            function getPersons() {
+                $.ajax({
+                    url: "http://localhost:8084/AngularJquery/api/data",
+                    type: "GET",
+                    contentType: "application/json",
+                    success: function (data, textStatus, jqXHR) {
+                        createTable(data);
+                    }
+                })
+            }
+
+            function createTable(data) {
+                var header = "<tr> <th> Id </th> <th> Age </th> " +
+                        " <th> Eye Color </th> <th> Name </th> <th> Email </th></tr>";
+
+                var start = "<tr> <td>";
+                var mid = "</td> <td>";
+                var end = "</td> </tr>";
+
+
+                for (var i = 0; i < data.length; i++) {
+                    header += start + data[i].id + mid + data[i].age + mid + data[i].eyeColor + mid + data[i].name + mid + data[i].email + end;
+                }
+                $(".data").html(header);
+            }
+
+        </script>
+    </body>
+</html>
